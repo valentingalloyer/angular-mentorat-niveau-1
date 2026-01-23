@@ -6,13 +6,15 @@ import { App } from './app';
 import { Header } from './components/header/header';
 import { Ex1 } from './components/ex1/ex1';
 import { Ex2 } from './components/ex2/ex2';
+import { TaskItem } from './components/task-item/task-item';
 
 @NgModule({
   declarations: [
     App,
     Header,
     Ex1,
-    Ex2
+    Ex2,
+    TaskItem
   ],
   imports: [
     BrowserModule,
