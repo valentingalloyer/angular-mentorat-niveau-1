@@ -7,11 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.css'],
 })
 export class Header {
-  title = 'Mentorat Angular – ToDo App';
-  subtitle = 'Premier composant et data binding';
+  title: string = 'Mentorat Angular – ToDo App';
+  subtitle: string = 'Premier composant et data binding';
 
   // Property binding
-  logoUrl = 'https://angular.io/assets/images/logos/angular/angular.svg';
+  logoUrl: string =
+    'https://angular.io/assets/images/logos/angular/angular.svg';
 
   // Event binding
   onHeaderButtonClick(): void {
