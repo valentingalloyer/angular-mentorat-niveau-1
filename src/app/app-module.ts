@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Header } from './components/header/header';
 import { Ex1 } from './components/ex1/ex1';
-import { Ex2 } from './components/ex2/ex2';
 import { TaskItem } from './components/task-item/task-item';
 
 @NgModule({
@@ -13,7 +12,6 @@ import { TaskItem } from './components/task-item/task-item';
     App,
     Header,
     Ex1,
-    Ex2,
     TaskItem
   ],
   imports: [
