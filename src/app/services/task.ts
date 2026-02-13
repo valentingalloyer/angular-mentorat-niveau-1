@@ -19,8 +19,7 @@ export class TaskService {
     'Coder en Angular',
   ];
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getTasks(): string[] {
     // On renvoie une copie pour éviter les modifications directes hors service

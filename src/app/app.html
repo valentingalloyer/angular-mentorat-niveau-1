@@ -8,7 +8,7 @@
   </button>
 
   <div *ngIf="showList">
-    <!-- Ajout tâche (sans ngModel) -->
+    <!-- Ajout tâche -->
     <input type="text" placeholder="Nouvelle tâche" #taskInput />
     <button (click)="addTask(taskInput.value); taskInput.value = ''">
       Ajouter
