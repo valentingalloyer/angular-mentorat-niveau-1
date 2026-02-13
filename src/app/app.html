@@ -8,11 +8,25 @@
   </button>
 
   <div *ngIf="showList">
-    <!-- Ajout tâche -->
-    <input type="text" placeholder="Nouvelle tâche" #taskInput />
-    <button (click)="addTask(taskInput.value); taskInput.value = ''">
-      Ajouter
-    </button>
+
+    <form #taskForm="ngForm" (ngSubmit)="addTask()">
+
+      <input [(ngModel)]="newTask" type="text" name="task" required minlength="3"/>
+
+      <div *ngIf="taskForm.submitted && taskForm.controls['task']?.invalid">
+        <small *ngIf="taskForm.controls['task']?.errors?.['required']">
+          Le champ est obligatoire.
+        </small>
+        <small *ngIf="taskForm.controls['task']?.errors?.['minlength']">
+          Minimum 3 caractères.
+        </small>
+      </div>
+
+      <button type="submit" [disabled]="taskForm.invalid">
+        Ajouter
+      </button>
+
+    </form>
 
     <!-- Chargement API -->
     <button (click)="loadFromApi()">

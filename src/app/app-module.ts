@@ -7,6 +7,7 @@ import { Header } from './components/header/header';
 import { Ex1 } from './components/ex1/ex1';
 import {TaskItem} from './components/task-item/task-item';
 import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [
     provideBrowserGlobalErrorListeners()

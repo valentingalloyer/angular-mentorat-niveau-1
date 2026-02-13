@@ -13,6 +13,8 @@ export class App implements OnInit {
   tasks: string[] = [];
   showList = true;
 
+  newTask = '';
+
   // Injection de dépendance : Angular fournit TaskService automatiquement
   constructor(private taskService: TaskService) {}
 
@@ -20,9 +22,12 @@ export class App implements OnInit {
     this.tasks = this.taskService.getTasks();
   }
 
-  addTask(task: string): void {
-    this.taskService.addTask(task);
+  addTask(): void {
+    if (this.newTask.trim() === '') return;
+
+    this.taskService.addTask(this.newTask);
     this.tasks = this.taskService.getTasks();
+    this.newTask = '';
   }
 
   removeTask(index: number): void {
