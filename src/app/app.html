@@ -1,36 +1,30 @@
 <app-header></app-header>
 
 <main class="container">
-
-  <app-ex1></app-ex1>
-
   <h2>Liste de tâches</h2>
 
-  <!-- Bouton *ngIf -->
   <button (click)="showList = !showList">
-    {{ showList ? 'Masquer' : 'Afficher' }} la liste
+    Afficher / masquer la liste
   </button>
 
-  <!-- *ngIf -->
   <div *ngIf="showList">
-    <!-- Ajout d’une tâche -->
-    <input
-      type="text"
-      placeholder="Nouvelle tâche"
-      #taskInput
-    />
+    <!-- Ajout tâche (sans ngModel) -->
+    <input type="text" placeholder="Nouvelle tâche" #taskInput />
     <button (click)="addTask(taskInput.value); taskInput.value = ''">
       Ajouter
     </button>
 
-    <!-- Liste avec *ngFor -->
-    <app-task-item
-      *ngFor="let task of tasks; let i = index"
-      [task]="task"
-      (done)="removeTask(i)"
-    >
-    </app-task-item>
+    <!-- Chargement API -->
+    <button (click)="loadFromApi()">
+      Charger depuis l’API (mock)
+    </button>
+
+    <div class="list">
+      <app-task-item
+        *ngFor="let task of tasks; let i = index"
+        [task]="task"
+        (done)="removeTask(i)"
+      ></app-task-item>
+    </div>
   </div>
-
-
 </main>

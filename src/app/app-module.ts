@@ -6,6 +6,7 @@ import { App } from './app';
 import { Header } from './components/header/header';
 import { Ex1 } from './components/ex1/ex1';
 import {TaskItem} from './components/task-item/task-item';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {TaskItem} from './components/task-item/task-item';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners()
