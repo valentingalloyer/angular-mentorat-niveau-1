@@ -8,20 +8,24 @@ import { Ex1 } from './components/ex1/ex1';
 import {TaskItem} from './components/task-item/task-item';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { About } from './components/pages/about/about';
+import { Tasks } from './components/pages/tasks/tasks';
 
 @NgModule({
   declarations: [
     App,
     Header,
     Ex1,
-    TaskItem
+    TaskItem,
+    About,
+    Tasks
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners()

@@ -1,44 +1,10 @@
 <app-header></app-header>
 
+<nav class="nav">
+  <a routerLink="/tasks" routerLinkActive="active">Tâches</a>
+  <a routerLink="/about" routerLinkActive="active">À propos</a>
+</nav>
+
 <main class="container">
-  <h2>Liste de tâches</h2>
-
-  <button (click)="showList = !showList">
-    Afficher / masquer la liste
-  </button>
-
-  <div *ngIf="showList" class="card">
-
-    <form [formGroup]="form" (ngSubmit)="addTaskReactive()">
-
-      <input type="text" formControlName="task" />
-
-      <div *ngIf="form.controls.task.invalid && form.controls.task.touched">
-        Champ invalide.
-      </div>
-
-      <button type="submit" [disabled]="form.invalid">
-        Ajouter
-      </button>
-
-    </form>
-
-    <!-- Chargement API -->
-    <button (click)="loadFromApi()">
-      Charger depuis l’API
-    </button>
-
-    <div *ngIf="tasks.length === 0" class="empty">
-      Aucune tâche pour le moment.
-    </div>
-
-    <div class="list">
-      <app-task-item
-        *ngFor="let task of tasks; let i = index"
-        [task]="task"
-        (remove)="removeTask(i)"
-        (done)="toggleDone(i)"
-      ></app-task-item>
-    </div>
-  </div>
+  <router-outlet></router-outlet>
 </main>
