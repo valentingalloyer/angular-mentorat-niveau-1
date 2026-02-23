@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
+import {TaskService} from './services/task';
 
 @Component({
   selector: 'app-root',
@@ -6,27 +7,39 @@ import { Component, signal } from '@angular/core';
   standalone: false,
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('angular-mentorat-niveau-1');
 
-  // Liste des tâches
-  tasks: string[] = [
-    'Acheter du pain',
-    'Faire les courses',
-    'Coder en Angular',
-  ];
-
-  // Pour *ngIf
+  tasks: string[] = [];
   showList = true;
 
+  // Injection de dépendance : Angular fournit TaskService automatiquement
+  constructor(private taskService: TaskService) {
+  }
+
+  ngOnInit() {
+    // this.tasks = this.taskService.getTasks();
+    this.loadFromApi();
+  }
+
   addTask(task: string): void {
-    if (task.trim() === '') {
-      return;
-    }
-    this.tasks.push(task);
+    this.taskService.addTask(task, this.tasks);
+    // this.tasks = this.taskService.getTasks();
   }
 
   removeTask(index: number): void {
-    this.tasks.splice(index, 1);
+    this.taskService.removeTask(index, this.tasks);
+    // this.tasks = this.taskService.getTasks();
+  }
+
+  loadFromApi(limit = 5): void {
+    this.taskService.loadMockTodosFromApi().subscribe({
+      next: (apiTasks: any[]) => {
+        this.tasks = apiTasks.slice(0, limit).map((t: any) => t.title);
+        },
+      error: (err) => {
+        console.log('Erreur lors du chargement API', err);
+      }
+    });
   }
 }
