@@ -1,10 +1,28 @@
 .task {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 0;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid white;
 }
 
-.task button {
-  margin-left: 10px;
+.title {
+  flex: 1;
+}
+
+.task.done .title {
+  text-decoration: line-through;
+  color: green;
+}
+
+.task.bold {
+  font-weight: bold;
+}
+
+button.done {
+  background-color: green;
+}
+
+button.todo {
+  background-color: red;
 }

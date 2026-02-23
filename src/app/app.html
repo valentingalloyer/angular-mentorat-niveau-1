@@ -7,7 +7,7 @@
     Afficher / masquer la liste
   </button>
 
-  <div *ngIf="showList">
+  <div *ngIf="showList" class="card">
 
     <form [formGroup]="form" (ngSubmit)="addTaskReactive()">
 
@@ -28,11 +28,16 @@
       Charger depuis l’API
     </button>
 
+    <div *ngIf="tasks.length === 0" class="empty">
+      Aucune tâche pour le moment.
+    </div>
+
     <div class="list">
       <app-task-item
         *ngFor="let task of tasks; let i = index"
         [task]="task"
-        (done)="removeTask(i)"
+        (remove)="removeTask(i)"
+        (done)="toggleDone(i)"
       ></app-task-item>
     </div>
   </div>

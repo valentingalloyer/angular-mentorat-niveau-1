@@ -1,7 +1,18 @@
-<div class="task">
-  <span>{{ task }}</span>
+<div
+  class="task"
+  [ngClass]="{'done': task.done, 'bold': task.title.length > 25}"
+  [ngStyle]="{ opacity: task.done ? 0.75 : 1 }"
+>
+  <span class="title">{{ task.title }}</span>
 
-  <button type="button" (click)="markDone()">
-    Done
+  <button type="button"
+          class="ghost"
+          [ngClass]="task.done ? 'done' : 'todo'"
+          (click)="markDone()">
+    {{ task.done ? 'Undo' : 'Done' }}
+  </button>
+
+  <button type="button" class="danger" (click)="delete()">
+    Supprimer
   </button>
 </div>
