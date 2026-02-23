@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map, Observable} from 'rxjs';
-
-export type TodoFromApi = {
-  id: number;
-  title: string;
-  completed: boolean;
-};
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,10 +15,10 @@ export class TaskService {
 
   constructor(private http: HttpClient) {}
 
-  getTasks(): string[] {
+/*  getTasks(): string[] {
     // On renvoie une copie pour éviter les modifications directes hors service
     return [...this.tasks];
-  }
+  }*/
 
   addTask(task: string): void {
     const t = task.trim();
@@ -37,12 +31,9 @@ export class TaskService {
     this.tasks.splice(index, 1);
   }
 
-  loadMockTodosFromApi(limit = 5): Observable<string[]> {
+  loadMockTodosFromApi(): Observable<string[]> {
     return this.http
-      .get<TodoFromApi[]>('https://jsonplaceholder.typicode.com/todos')
-      .pipe(
-        map((todos) => todos.slice(0, limit).map((t) => t.title))
-      );
+      .get<any>('https://jsonplaceholder.typicode.com/todos');
   }
 
 }
