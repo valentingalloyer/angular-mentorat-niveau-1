@@ -18,17 +18,50 @@ export type TodoFromApi = {
 })
 export class TaskService {
 
-  constructor(private http: HttpClient) {}
+  private readonly storageKey = 'angular-mentorat-tasks';
 
-  addTask(task: string, list: Task[]): void {
-    const t = task.trim();
-    if (!t) return;
-    list.push({ title: t, done: false });
+  tasks: Task[] = [];
+  private saveToStorage(): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(this.tasks));
   }
 
-  removeTask(index: number, list: Task[]): void {
-    if (index < 0 || index >= list.length) return;
-    list.splice(index, 1);
+  constructor(private http: HttpClient) {
+    this.loadFromStorage();
+  }
+
+  getTasks(): Task[] {
+    return this.tasks;
+  }
+
+  loadFromStorage(): Task[] {
+    const raw = localStorage.getItem(this.storageKey);
+    if (!raw) return [];
+
+    try {
+      const parsed = JSON.parse(raw) as any[];
+      this.tasks = parsed.map(t => ({title: t.title, done: t.done}));
+    } catch {
+      this.tasks = [];
+    }
+    return this.tasks;
+  }
+
+  clearAll(): void {
+    this.tasks = [];
+    localStorage.removeItem(this.storageKey);
+  }
+
+  addTask(task: string): void {
+    const t = task.trim();
+    if (!t) return;
+    this.tasks.push({ title: t, done: false });
+    this.saveToStorage();
+  }
+
+  removeTask(index: number): void {
+    if (index < 0 || index >= this.tasks.length) return;
+    this.tasks.splice(index, 1);
+    this.saveToStorage();
   }
 
   loadMockTodosFromApi(): Observable<Task[]> {
@@ -45,8 +78,15 @@ export class TaskService {
       );
   }
 
-  replaceTasks(tasks: Task[], list: Task[]): void {
-    list = tasks.map(t => ({ ...t }));
+  toggleDone(index: number): void {
+    if (index < 0 || index >= this.tasks.length) return;
+    this.tasks[index].done = !this.tasks[index].done;
+    this.saveToStorage();
+  }
+
+  replaceTasks(tasks: Task[]): void {
+    this.tasks = tasks.map(t => ({ ...t }));
+    this.saveToStorage();
   }
 
 }
