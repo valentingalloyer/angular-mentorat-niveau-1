@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Task, TaskService} from '../../../services/task';
 
@@ -8,7 +8,7 @@ import {Task, TaskService} from '../../../services/task';
   templateUrl: './tasks.html',
   styleUrl: './tasks.css',
 })
-export class Tasks {
+export class Tasks implements OnInit {
 
   protected readonly title = signal('angular-mentorat-niveau-1');
 
@@ -27,7 +27,11 @@ export class Tasks {
   }
 
   ngOnInit() {
-    this.loadFromApi();
+    this.tasks = this.taskService.loadFromStorage();
+  }
+
+  clearAll(): void {
+    this.taskService.clearAll();
   }
 
   addTaskReactive(): void {
@@ -39,14 +43,16 @@ export class Tasks {
 
     if (!value) return;
 
-    this.taskService.addTask(value, this.tasks);
+    this.taskService.addTask(value);
 
     // réinitialise le formulaire
     this.form.reset();
+    this.refresh();
   }
 
   removeTask(index: number): void {
-    this.taskService.removeTask(index, this.tasks);
+    this.taskService.removeTask(index);
+    this.refresh();
   }
 
   loadFromApi(limit = 5): void {
@@ -61,8 +67,12 @@ export class Tasks {
   }
 
   toggleDone(index: number): void {
-    if (index < 0 || index >= this.tasks.length) return;
-    this.tasks[index].done = !this.tasks[index].done;
+    this.taskService.toggleDone(index);
+    this.refresh();
+  }
+
+  refresh(): void {
+    this.tasks = this.taskService.getTasks();
   }
 
 }
