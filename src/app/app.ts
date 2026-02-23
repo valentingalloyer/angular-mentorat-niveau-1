@@ -23,12 +23,12 @@ export class App implements OnInit {
   }
 
   addTask(task: string): void {
-    this.taskService.addTask(task);
+    this.taskService.addTask(task, this.tasks);
     // this.tasks = this.taskService.getTasks();
   }
 
   removeTask(index: number): void {
-    this.taskService.removeTask(index);
+    this.taskService.removeTask(index, this.tasks);
     // this.tasks = this.taskService.getTasks();
   }
 
