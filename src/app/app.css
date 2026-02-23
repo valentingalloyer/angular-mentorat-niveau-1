@@ -1,7 +1,54 @@
 .container {
   padding: 16px;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
-.list {
-  margin-top: 12px;
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.add {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.add input {
+  flex: 1;
+  padding: 8px 10px;
+}
+
+button {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button.primary {
+  border-color: #c00;
+  font-weight: 600;
+}
+
+button.ghost {
+  background: #f7f7f7;
+}
+
+button.danger {
+  border-color: #e35b5b;
+}
+
+.empty {
+  opacity: 0.7;
+  padding: 8px 0;
 }

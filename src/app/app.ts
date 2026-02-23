@@ -1,5 +1,5 @@
 import {Component, OnInit, signal} from '@angular/core';
-import {TaskService} from './services/task';
+import {Task, TaskService} from './services/task';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -11,7 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class App implements OnInit {
   protected readonly title = signal('angular-mentorat-niveau-1');
 
-  tasks: string[] = [];
+  tasks: Task[] = [];
   showList = true;
 
   form = new FormGroup({
@@ -51,11 +51,16 @@ export class App implements OnInit {
   loadFromApi(limit = 5): void {
     this.taskService.loadMockTodosFromApi().subscribe({
       next: (apiTasks: any[]) => {
-        this.tasks = apiTasks.slice(0, limit).map((t: any) => t.title);
+        this.tasks = apiTasks.slice(0, limit);
         },
       error: (err) => {
         console.log('Erreur lors du chargement API', err);
       }
     });
+  }
+
+  toggleDone(index: number): void {
+    if (index < 0 || index >= this.tasks.length) return;
+    this.tasks[index].done = !this.tasks[index].done;
   }
 }
