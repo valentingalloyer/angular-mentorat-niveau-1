@@ -7,28 +7,17 @@ import {Observable} from 'rxjs';
 })
 export class TaskService {
 
-  private tasks: string[] = [
-    'Acheter du pain',
-    'Faire les courses',
-    'Coder en Angular',
-  ];
-
   constructor(private http: HttpClient) {}
 
-/*  getTasks(): string[] {
-    // On renvoie une copie pour éviter les modifications directes hors service
-    return [...this.tasks];
-  }*/
-
-  addTask(task: string): void {
+  addTask(task: string, list: string[]): void {
     const t = task.trim();
     if (!t) return;
-    this.tasks.push(t);
+    list.push(t);
   }
 
-  removeTask(index: number): void {
-    if (index < 0 || index >= this.tasks.length) return;
-    this.tasks.splice(index, 1);
+  removeTask(index: number, list: string[]): void {
+    if (index < 0 || index >= list.length) return;
+    list.splice(index, 1);
   }
 
   loadMockTodosFromApi(): Observable<string[]> {

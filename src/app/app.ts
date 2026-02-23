@@ -20,6 +20,7 @@ export class App implements OnInit {
   }
 
   ngOnInit() {
+    // this.tasks = this.taskService.getTasks();
     this.loadFromApi();
   }
 
