@@ -1,5 +1,6 @@
 import {Component, OnInit, signal} from '@angular/core';
 import {TaskService} from './services/task';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,22 +14,34 @@ export class App implements OnInit {
   tasks: string[] = [];
   showList = true;
 
-  newTask = '';
+  form = new FormGroup({
+    task: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3)
+    ])
+  });
 
   // Injection de dépendance : Angular fournit TaskService automatiquement
   constructor(private taskService: TaskService) {
   }
 
   ngOnInit() {
-    // this.tasks = this.taskService.getTasks();
     this.loadFromApi();
   }
 
-  addTask(): void {
-    if (this.newTask.trim() === '') return;
+  addTaskReactive(): void {
+    if (this.form.invalid) {
+      return;
+    }
 
-    this.taskService.addTask(this.newTask, this.tasks);
-    this.newTask = '';
+    const value = this.form.controls.task.value;
+
+    if (!value) return;
+
+    this.taskService.addTask(value, this.tasks);
+
+    // réinitialise le formulaire
+    this.form.reset();
   }
 
   removeTask(index: number): void {

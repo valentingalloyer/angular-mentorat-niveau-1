@@ -9,20 +9,15 @@
 
   <div *ngIf="showList">
 
-    <form #taskForm="ngForm" (ngSubmit)="addTask()">
+    <form [formGroup]="form" (ngSubmit)="addTaskReactive()">
 
-      <input [(ngModel)]="newTask" type="text" name="task" required minlength="3"/>
+      <input type="text" formControlName="task" />
 
-      <div *ngIf="taskForm.submitted && taskForm.controls['task']?.invalid">
-        <small *ngIf="taskForm.controls['task']?.errors?.['required']">
-          Le champ est obligatoire.
-        </small>
-        <small *ngIf="taskForm.controls['task']?.errors?.['minlength']">
-          Minimum 3 caractères.
-        </small>
+      <div *ngIf="form.controls.task.invalid && form.controls.task.touched">
+        Champ invalide.
       </div>
 
-      <button type="submit" [disabled]="taskForm.invalid">
+      <button type="submit" [disabled]="form.invalid">
         Ajouter
       </button>
 
