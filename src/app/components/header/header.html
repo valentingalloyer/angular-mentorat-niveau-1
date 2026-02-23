@@ -1,0 +1,13 @@
+<header class="header">
+  <!-- Interpolation -->
+  <h1>{{ title }}</h1>
+  <p>{{ subtitle }}</p>
+
+  <!-- Property binding -->
+  <img [src]="logoUrl" alt="Angular logo" width="48" />
+
+  <!-- Event binding -->
+  <button type="button" (click)="onHeaderButtonClick()">
+    Tester le clic
+  </button>
+</header>
