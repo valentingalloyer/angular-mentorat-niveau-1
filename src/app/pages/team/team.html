@@ -1,0 +1,16 @@
+<h2>Ma Team</h2>
+
+<div class="toolbar">
+  <button type="button" (click)="clear()">Tout effacer</button>
+</div>
+
+<div *ngIf="team.length === 0" class="empty">
+  Aucun Pokémon dans la team.
+</div>
+
+<app-pokemon-item
+  *ngFor="let m of team; let i = index"
+  [member]="m"
+  (ko)="toggleKo(i)"
+  (remove)="remove(i)"
+></app-pokemon-item>

@@ -1,0 +1,26 @@
+<div
+  class="card"
+  [ngClass]="{ ko: member.ko }"
+  [ngStyle]="{ borderColor: borderColor, opacity: member.ko ? 0.7 : 1 }"
+>
+  <div class="left">
+    <img *ngIf="member.sprite; else noSprite" [src]="member.sprite" [alt]="member.name" />
+    <ng-template #noSprite>
+      <div class="placeholder">?</div>
+    </ng-template>
+  </div>
+
+  <div class="mid">
+    <div class="name">{{ member.name }} <span class="id">#{{ member.id }}</span></div>
+    <div class="types">
+      <span class="type" *ngFor="let t of member.types">{{ t }}</span>
+    </div>
+  </div>
+
+  <div class="right">
+    <button type="button" class="ghost" (click)="toggleKo()">
+      {{ member.ko ? 'Undo' : 'K.O.' }}
+    </button>
+    <button type="button" class="danger" (click)="delete()">Supprimer</button>
+  </div>
+</div>

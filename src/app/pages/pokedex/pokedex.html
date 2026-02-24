@@ -1,0 +1,38 @@
+<h2>Pokédex</h2>
+
+<form #f="ngForm" (ngSubmit)="search()" class="form">
+  <input
+    type="text"
+    name="pokemon"
+    [(ngModel)]="query"
+    required
+    minlength="3"
+    placeholder="Ex: pikachu"
+  />
+
+  <button type="submit" [disabled]="f.invalid || loading">
+    {{ loading ? 'Chargement...' : 'Rechercher' }}
+  </button>
+</form>
+
+<div class="error" *ngIf="f.submitted && f.invalid">
+  <small *ngIf="f.controls['pokemon']?.errors?.['required']">Champ obligatoire.</small>
+  <small *ngIf="f.controls['pokemon']?.errors?.['minlength']">Min 3 caractères.</small>
+</div>
+
+<div class="error" *ngIf="errorMsg">{{ errorMsg }}</div>
+
+<div class="result" *ngIf="result">
+  <h3>{{ result.name }} (#{{ result.id }})</h3>
+
+  <img *ngIf="result.sprite; else noImg" [src]="result.sprite" [alt]="result.name" />
+  <ng-template #noImg>
+    <div class="noimg">Pas d’image (mock/fallback)</div>
+  </ng-template>
+
+  <div class="types">
+    <span class="type" *ngFor="let t of result.types">{{ t }}</span>
+  </div>
+
+  <button type="button" (click)="addToTeam()">Ajouter à la team</button>
+</div>
