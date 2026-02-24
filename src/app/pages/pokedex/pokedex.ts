@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {TeamService} from '../../services/team.service';
 import {PokeApiService} from '../../services/pokeapi.service';
 import {PokemonSummary} from '../../models/pokemon';
@@ -18,7 +18,8 @@ export class Pokedex {
 
   constructor(
     private pokeApi: PokeApiService,
-    private teamService: TeamService
+    private teamService: TeamService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   search(): void {
@@ -35,14 +36,19 @@ export class Pokedex {
 
     this.pokeApi.getPokemonByName(q).subscribe({
       next: (p) => {
+        console.log(p)
         this.result = p;
-        if (!p) this.errorMsg = 'Pokémon introuvable (ou mock indisponible).';
+        if (!p) {
+          this.errorMsg = 'Pokémon introuvable (ou mock indisponible).';
+        }
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.errorMsg = 'Erreur réseau.';
         this.loading = false;
-      },
+        this.cdr.detectChanges();
+      }
     });
   }
 

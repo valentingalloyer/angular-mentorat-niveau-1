@@ -34,6 +34,7 @@ export class PokeApiService {
 
   private mockPokemon(name: string): PokemonSummary | null {
     // fallback très simple pour ne pas bloquer l’atelier
+    console.log("Passage par le mock")
     const mocks: Record<string, PokemonSummary> = {
       pikachu: { id: 25, name: 'pikachu', sprite: null, types: ['electric'] },
       bulbasaur: { id: 1, name: 'bulbasaur', sprite: null, types: ['grass', 'poison'] },
